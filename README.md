@@ -1,22 +1,162 @@
-# Getting Started
+# Spring Boot CRUD Application
 
-### Reference Documentation
-For further reference, please consider the following sections:
+## Overview
 
-* [Official Gradle documentation](https://docs.gradle.org)
-* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/4.1.0/gradle-plugin)
-* [Create an OCI image](https://docs.spring.io/spring-boot/4.1.0/gradle-plugin/packaging-oci-image.html)
-* [Spring Web](https://docs.spring.io/spring-boot/4.1.0/reference/web/servlet.html)
+This project is a **Spring Boot application** that provides CRUD operations for managing application resources.
 
-### Guides
-The following guides illustrate how to use some features concretely:
+The application uses **Gradle** as its build and dependency management tool.
 
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
+## Requirements
 
-### Additional Links
-These additional references should also help you:
+Before running the application, make sure you have installed:
 
-* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
+* Java 17 or later
+* Gradle, or use the included Gradle Wrapper
+* Git (optional)
 
+## Running the Application
+
+To start the Spring Boot application, execute:
+
+```bash
+./gradlew bootRun
+```
+
+On Windows:
+
+```bash
+gradlew.bat bootRun
+```
+
+Once the application starts, it will be available at:
+
+```text
+http://localhost:8080
+```
+
+## CRUD Resources
+
+The application exposes REST resources that follow the standard **CRUD** pattern.
+
+CRUD stands for:
+
+* **Create** – Create a new resource of product.
+* **Read** – Retrieve existing resources related to products.
+* **Update** – Modify an existing resource of product.
+* **Delete** – Remove an existing resource.
+
+For example, assuming the application manages a `Product` resource:
+
+| Operation | HTTP Method | Example Endpoint | Description                 |
+| --------- | ----------- | ---------------- | --------------------------- |
+| Create    | `POST`      | `/products`      | Creates a new product       |
+| Read all  | `GET`       | `/products`      | Returns all products        |
+| Read one  | `GET`       | `/products/{id}` | Returns a product by ID     |
+| Update    | `PUT`       | `/products/{id}` | Updates an existing product |
+| Delete    | `DELETE`    | `/products/{id}` | Deletes a product           |
+
+### Create
+
+Use `POST` to create a new resource.
+
+```shell
+curl --location 'localhost:8080/products' \
+--header 'Content-Type: application/json' \
+--data '{
+    "name": "mandarina"
+}'
+```
+
+Example response:
+
+```json
+{
+  "name": "mandarina mandarina"
+}
+```
+
+
+### Read
+
+Use `GET` to retrieve resources.
+
+Retrieve all products:
+
+```shell
+curl --location 'localhost:8080/products'
+```
+Example response:
+
+```json
+[
+  {
+    "name": "MANZANA"
+  }
+]
+```
+
+Retrieve a specific product:
+
+```shell
+curl --location 'localhost:8080/products/granadilla'
+```
+
+Example response:
+
+```json
+{
+  "name": "granadilla"
+}
+```
+### Update
+
+Use `PUT` to update an existing resource.
+
+```shell
+curl --location --request PUT 'localhost:8080/products/anana' \
+--header 'Content-Type: application/json' \
+--data '{
+    "name": "aleluya"
+}'
+```
+
+Example response:
+
+```json
+{
+  "name": "4n4n44leluy4"
+}
+```
+
+The resource identified by `anana` is updated with the new information.
+
+### Delete
+
+Use `DELETE` to remove a resource.
+
+```shell
+curl --location --request DELETE 'localhost:8080/products/anana' \
+--header 'Content-Type: application/json' \
+```
+
+The server deletes the product identified by `1`.
+
+## REST API Structure
+
+A typical Spring Boot CRUD application can be organized into the following layers:
+
+```text
+Controller
+    ↓
+Service
+    ↓
+Repository
+    ↓
+Database
+```
+
+### Controller
+
+The **Controller** exposes the REST endpoints and receives HTTP requests.
+
+Example:
