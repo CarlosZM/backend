@@ -1,41 +1,66 @@
 package com.utec.fullstack.backend.controller;
 
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import pe.utec.fullstack.superior.controller.request.CreateProductRequest;
+import pe.utec.fullstack.superior.controller.request.Currency;
+import pe.utec.fullstack.superior.controller.request.Product;
+import pe.utec.fullstack.superior.controller.request.UpdateProductRequest;
 
-import java.util.Collections;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/products")
 public class ProductController {
 
+    @Autowired
+    private ProductMapping productMapping;
+
+    private List<Product> products = new ArrayList<>() {{
+        add(Product.builder().id(1).name("Pisco").currency(Currency.SOL).purchasePrice(20.0).createdAt(LocalDateTime.now()).build());
+    }};
+
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Product getProduct(@PathVariable("id") String id) {
-        //SELECT * FROM PRODUCTS WHERE id = :id LIMIT 1
-        return new Product(id);
+    public Product getProduct(@PathVariable("id") Integer id) {
+        return this.products.get(id - 1);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Product> getProducts() {
         //SELECT * FROM PRODUCTS
-        return Collections.singletonList(new Product("MANZANA"));
+        return products;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Product createProduct(@RequestBody Product product) {
-        // INSERT INTO PRODUCTS VALUES(name)
-        return new Product(product.getName() + " " + product.getName());
+    public Product createProduct(@Valid @RequestBody CreateProductRequest product) {
+
+        Product newProduct = this.productMapping.convert(product);
+        newProduct.setCreatedAt(LocalDateTime.now());
+        newProduct.setId(this.products.size() + 1);
+        this.products.add(newProduct);
+        return newProduct;
     }
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Product updateProduct(@PathVariable("id") String id, @RequestBody Product product) {
+    public Product updateProduct(@PathVariable("id") Integer id, @RequestBody UpdateProductRequest product) {
         // UPDATE PRODUCTS SET name = :name where id = :id
-        return new Product((id + product.getName()).toLowerCase().replace("a", "4"));
+        Product oldProductWithNewInfo = this.productMapping.convert(product);
+        Product oldProduct = this.products.get(id - 1);
+
+        Product updateProduct = this.productMapping.copyFrom(oldProduct, oldProductWithNewInfo);
+        updateProduct.setUpdatedAt(LocalDateTime.now());
+
+        this.products.set(id - 1, updateProduct);
+
+        return updateProduct;
     }
 
     @DeleteMapping("{id}")
@@ -57,8 +82,7 @@ public class ProductController {
     }
 
     @PostMapping("{id}/stock/{stock}/validate")
-    public Boolean getStock(@PathVariable("id") String id,
-                            @PathVariable("stock") Double stock) {
+    public Boolean getStock(@PathVariable("id") String id, @PathVariable("stock") Double stock) {
         return stock < 20.0;
     }
 
