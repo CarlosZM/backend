@@ -21,7 +21,16 @@ public class ProductController {
     private ProductMapping productMapping;
 
     private List<Product> products = new ArrayList<>() {{
-        add(Product.builder().id(1).name("Pisco").currency(Currency.SOL).purchasePrice(20.0).createdAt(LocalDateTime.now()).build());
+        add(Product.builder()
+                .id(1)
+                .name("Pisco")
+                .currency(Currency.SOL)
+                .purchasePrice(20.0)
+                .createdAt(LocalDateTime.now())
+                .build());
+        add(
+                new Product(2, "Nombre", "IMAGE_URL", Currency.DOLLAR, 30.0, 50.0, 100.0, false, true, null, LocalDateTime.now(), LocalDateTime.now())
+        );
     }};
 
     @GetMapping("{id}")
@@ -33,7 +42,6 @@ public class ProductController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Product> getProducts() {
-        //SELECT * FROM PRODUCTS
         return products;
     }
 

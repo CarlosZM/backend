@@ -13,13 +13,11 @@ import lombok.NoArgsConstructor;
 public class CreateProductRequest {
 
     @NotEmpty
-    @Min(value = 3)
-    @Max(value = 30)
-    private String name;
+    @Size(min = 3,max = 30)
+    private String naming;
 
     @NotEmpty
-    @Max(value = 256)
-    @Min(value = 30)
+    @Size(min = 30,max = 256)
     private String imageUrl;
 
     @NotNull
