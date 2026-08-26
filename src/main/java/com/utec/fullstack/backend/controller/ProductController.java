@@ -1,13 +1,13 @@
 package com.utec.fullstack.backend.controller;
 
+import com.utec.fullstack.backend.controller.request.CreateProductRequest;
+import com.utec.fullstack.backend.controller.request.Currency;
+import com.utec.fullstack.backend.controller.request.Product;
+import com.utec.fullstack.backend.controller.request.UpdateProductRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import pe.utec.fullstack.superior.controller.request.CreateProductRequest;
-import pe.utec.fullstack.superior.controller.request.Currency;
-import pe.utec.fullstack.superior.controller.request.Product;
-import pe.utec.fullstack.superior.controller.request.UpdateProductRequest;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -1,10 +1,10 @@
 package com.utec.fullstack.backend.controller;
 
+import com.utec.fullstack.backend.controller.request.CreateProductRequest;
+import com.utec.fullstack.backend.controller.request.Product;
+import com.utec.fullstack.backend.controller.request.UpdateProductRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
-import pe.utec.fullstack.superior.controller.request.CreateProductRequest;
-import pe.utec.fullstack.superior.controller.request.Product;
-import pe.utec.fullstack.superior.controller.request.UpdateProductRequest;
 
 @Mapper(componentModel = "spring")
 public interface ProductMapping {
