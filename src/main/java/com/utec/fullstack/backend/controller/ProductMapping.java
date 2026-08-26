@@ -3,11 +3,11 @@ package com.utec.fullstack.backend.controller;
 import com.utec.fullstack.backend.controller.request.CreateProductRequest;
 import com.utec.fullstack.backend.controller.request.Product;
 import com.utec.fullstack.backend.controller.request.UpdateProductRequest;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
+@MapperConfig(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface ProductMapping {
 
     @Mapping(source = "naming", target = "name")
@@ -33,10 +33,6 @@ public interface ProductMapping {
 
     Product convert(UpdateProductRequest createProductRequest);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "name", ignore = true)
-    @Mapping(target = "imageUrl", ignore = true)
-    @Mapping(target = "purchasePrice", ignore = true)
     Product copyFrom(@MappingTarget Product oldProduct, Product oldProductWithNewInfo);
 }
 
