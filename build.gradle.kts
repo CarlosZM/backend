@@ -13,6 +13,10 @@ java {
 	}
 }
 
+val mapstructVersion = "1.7.0.Beta1"
+val lombokVersion = "1.18.30"
+val lombokMapstructBindingVersion = "0.2.0"
+
 repositories {
 	mavenCentral()
 }
@@ -21,6 +25,13 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-webmvc")
 	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+
+	implementation("org.mapstruct:mapstruct:${mapstructVersion}")
+	implementation("org.projectlombok:lombok:${lombokVersion}")
+	annotationProcessor("org.mapstruct:mapstruct-processor:${mapstructVersion}")
+	annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+	annotationProcessor("org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}")
 }
 
 tasks.withType<Test> {
