@@ -1,41 +1,47 @@
 plugins {
-	java
-	id("org.springframework.boot") version "4.1.0"
-	id("io.spring.dependency-management") version "1.1.7"
+    java
+    id("org.springframework.boot") version "4.1.0"
+    id("io.spring.dependency-management") version "1.1.7"
 }
 
 group = "pe.utec.fullstack"
 version = "0.0.1-SNAPSHOT"
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
-	}
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 val mapstructVersion = "1.7.0.Beta1"
 val lombokVersion = "1.18.30"
 val lombokMapstructBindingVersion = "0.2.0"
+val jwtVersion = "0.13.0"
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-webmvc")
-	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-	implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("io.jsonwebtoken:jjwt-api:${jwtVersion}")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:${jwtVersion}")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:${jwtVersion}")
 
-	implementation("org.mapstruct:mapstruct:${mapstructVersion}")
-	implementation("org.projectlombok:lombok:${lombokVersion}")
-	annotationProcessor("org.mapstruct:mapstruct-processor:${mapstructVersion}")
-	annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
-	annotationProcessor("org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-webmvc")
+    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+
+    implementation("org.mapstruct:mapstruct:${mapstructVersion}")
+    implementation("org.projectlombok:lombok:${lombokVersion}")
+    annotationProcessor("org.mapstruct:mapstruct-processor:${mapstructVersion}")
+    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+    annotationProcessor("org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}")
 }
 
 tasks.withType<Test> {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
 
 

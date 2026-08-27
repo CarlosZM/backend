@@ -58,7 +58,8 @@ public class ProductController {
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Product updateProduct(@PathVariable("id") Integer id, @RequestBody UpdateProductRequest product) {
+    public Product updateProduct(@PathVariable("id") Integer id,
+                                 @RequestBody UpdateProductRequest product) {
         // UPDATE PRODUCTS SET name = :name where id = :id
         Product oldProductWithNewInfo = this.productMapping.convert(product);
         Product oldProduct = this.products.get(id - 1);

@@ -5,8 +5,8 @@ import com.utec.fullstack.backend.controller.request.Product;
 import com.utec.fullstack.backend.controller.request.UpdateProductRequest;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
-@MapperConfig(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+@Mapper(componentModel = "spring",
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface ProductMapping {
 
