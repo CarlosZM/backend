@@ -2,6 +2,7 @@ package com.utec.fullstack.backend.controller;
 
 import com.utec.fullstack.backend.business.JwtService;
 import com.utec.fullstack.backend.controller.request.AuthRequest;
+import com.utec.fullstack.backend.controller.request.RefreshAuthRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,9 +27,16 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
         );
         if (authentication.isAuthenticated()) {
-            return jwtService.generateToken(authRequest.getUsername());
+            return jwtService.generateSpecialToken(authRequest.getUsername(),authentication,authRequest);
         } else {
             throw new UsernameNotFoundException("Invalid user request!");
         }
+    }
+
+
+    @PostMapping("/refresh")
+    public String refreshToken(@RequestBody RefreshAuthRequest authRequest) {
+
+        return jwtService.refreshToken(authRequest.getJwt());
     }
 }

@@ -11,6 +11,7 @@ import org.mapstruct.*;
 public interface ProductMapping {
 
     @Mapping(source = "naming", target = "name")
+    //@Mapping(source="otro",target = "otro2")
     Product convert(CreateProductRequest createProductRequest);
 
     /**

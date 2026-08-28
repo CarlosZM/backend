@@ -16,15 +16,25 @@ public class AppConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails userDetails = User.builder().
-                username("admin")
-                .password(passwordEncoder().encode("admin123")).roles("ADMIN").
-                build();
-        return new InMemoryUserDetailsManager(userDetails);
+        return new InMemoryUserDetailsManager(
+                User.builder().
+                        username("admin")
+                        .password(passwordEncoder().encode("admin123")).roles("ADMIN", "PERSONS", "PRODUCTS").
+                        build(),
+                User.builder().
+                        username("juan")
+                        .password(passwordEncoder().encode("admin123")).roles("PERSONS").
+                        build(),
+                User.builder().
+                        username("pablo")
+                        .password(passwordEncoder().encode("admin123")).roles("PRODUCTS").
+                        build()
+        );
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+        //password -> dj2oi8y12dikahsd98ahs987dy210idjhasu98dyapohds
         return new BCryptPasswordEncoder();
     }
 

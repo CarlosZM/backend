@@ -22,9 +22,10 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/products/**").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers("/persons/**").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers("/me/**").authenticated()
+                        .requestMatchers("/products/**").hasAnyAuthority("ROLE_PRODUCTS", "ROLE_ADMIN")
+                        .requestMatchers("/persons/**").hasAuthority("ROLE_PERSONS")
+                        .requestMatchers("/me/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
