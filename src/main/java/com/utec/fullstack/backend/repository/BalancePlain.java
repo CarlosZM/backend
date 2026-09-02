@@ -7,14 +7,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
-@Table(name = "balance")
+@Table(name = "balance_plain")
+@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Data
-public class BalanceEntity {
+public class BalancePlain {
 
     @Id
     @GeneratedValue
@@ -25,6 +26,9 @@ public class BalanceEntity {
     private String userId;
 
     private Boolean isLocked;
+
+    @Column(name = "is_deleted")
+    private Boolean deleted;
 
     private Integer amountTransactions;
 

@@ -1,6 +1,5 @@
-package com.utec.fullstack.backend.repository;
+package com.utec.fullstack.backend.business;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,16 +7,12 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "balance")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
-public class BalanceEntity {
+public class Balance {
 
-    @Id
-    @GeneratedValue
     private Integer identifier;
 
     private Double amount;
