@@ -29,6 +29,8 @@ public class BalanceEntity {
     @Column(name = "is_locked")
     private Boolean isLocked;
 
+    private Boolean flag;
+
     @Column(name = "number")
     private Integer amountTransactions;
 

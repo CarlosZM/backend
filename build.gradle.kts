@@ -30,7 +30,12 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
-    runtimeOnly("org.postgresql:postgresql")
+    runtimeOnly("org.postgresql:postgresql") // esto cambia si cambiamos de base de datos
+    //runtimeOnly("com.microsoft.sqlserver:mssql-jdbc") si quisiera utilizar sql server
+    //runtimeOnly("com.mysql:mysql-connector-j") si quisiera utilizar mysql
+    //runtimeOnly("com.oracle.database.jdbc:ojdbc17") si quisiera utilizar oracle
+    //runtimeOnly("org.mariadb.jdbc:mariadb-java-client") si quisiera utilizar mariadb
+    //runtimeOnly("org.xerial:sqlite-jdbc") si quisiera utilizar sqlite
     testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation("org.springframework.boot:spring-boot-starter-validation")
