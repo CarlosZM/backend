@@ -17,13 +17,16 @@ import java.time.LocalDateTime;
 public class BalanceEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer identifier;
 
     private Double amount;
 
     private String userId;
 
+    //IS_LOCKED
+    //ISLOCKED
+    //BLOQUEADO
     private Boolean isLocked;
 
     private Integer amountTransactions;
